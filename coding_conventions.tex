@@ -1,0 +1,128 @@
+\documentclass{article}
+
+\usepackage[a4paper]{geometry}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+
+\title{Coding guidelines proposal}
+\author{Bart Vandewoestyne}
+
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+	
+\lstset{language=C++,
+	backgroundcolor=\color{white},
+	basicstyle=\ttfamily,
+	showspaces=false,
+	showstringspaces=false,
+	frame=shadowbox,
+	rulesepcolor=\color{blue}}
+
+\maketitle
+
+\tableofcontents
+
+\section{Comments}
+
+TODO: should comments on a class or method go in the header file or in the source file?
+
+\section{Warnings}
+
+Compile with as much warnings as you can.
+
+For Visual C++:
+\begin{itemize}
+	\item Use /Wall instead of /W1, /W2, /W3 or /W4 because this displays all /W4 warnings and any other warnings that are not included in /W4, for example, warnings that are off by default.
+	\item Use /WX to treat compiler warnings as errors.
+\end{itemize}
+
+\section{Header files}
+
+\subsection{Order of inclusion}
+Header file include order:
+\begin{enumerate}
+\item include file for corresponding .cpp file
+\item include files from current own module
+\item include files from other own modules
+\item include files from 3rd party modules
+\item standard library headers
+\item system headers
+\end{enumerate}
+\url{http://stackoverflow.com/questions/2762568/c-c-include-file-order-best-practices}
+
+\subsection{Include guards}
+
+Include guards should not start with underscores:
+\begin{itemize}
+\item \url{https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Include_Guard_Macro}
+\item \url{http://stackoverflow.com/questions/17307540/include-guard-conventions-in-c}
+\end{itemize}
+
+\section{Types}
+
+\begin{itemize}
+\item Types definitely should have no more than 50 methods.
+See 'Working Effectively with Legacy Code', page 245.
+CppDepend even warns when there are more than 20 methods.
+\item Types should not have more than 20 fields (CppDepend warns for this).
+\end{itemize}
+
+\section{Control statements}
+
+\begin{itemize}
+\item Always use braces in if-statements, to avoid confusion.
+\item Reduce scope of local variables as much as possible.  See \url{http://refactoring.com/catalog/reduceScopeOfVariable.html} and \url{http://stackoverflow.com/questions/23604699/cppcheck-the-scope-of-the-variable-can-be-reduced-and-loop}.
+\end{itemize}
+
+Always use brace in a for or if statement.  Use
+\begin{lstlisting}
+for (...)
+{
+    doSomething();
+}
+\end{lstlisting}
+instead of
+\begin{lstlisting}
+for (...)
+    doSomething();
+\end{lstlisting}
+Reason: avoid confusion and possible future bugs.
+
+\section{Whitespace}
+Use
+\begin{lstlisting}
+for (...)
+{
+}
+\end{lstlisting}
+instead of
+\begin{lstlisting}
+for(...)
+{
+}
+\end{lstlisting}
+
+
+\section{Return statements}
+
+Use
+\begin{lstlisting}
+return x;
+\end{lstlisting}
+instead of
+\begin{lstlisting}
+return (x);
+\end{lstlisting}
+See \url{http://stackoverflow.com/questions/4762662/are-parentheses-around-the-result-significant-in-a-return-statement} and \url{http://stackoverflow.com/questions/161879/parenthesis-surrounding-return-values}.
+Reason: it gives the compiler extra work and is not necessary for clarity, so don't use it.
+
+\section{Subversion}
+
+\begin{itemize}
+	\item Create separate commits for code formatting changes.
+\end{itemize}
+
+\end{document}
