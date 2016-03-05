@@ -61,6 +61,9 @@ Include guards should not start with underscores:
 \item \url{http://stackoverflow.com/questions/17307540/include-guard-conventions-in-c}
 \end{itemize}
 
+\subsection{Don't write namespace usings in a header file or before an include}
+See C++ Coding Standards, Chapter 59.
+
 \section{Types}
 
 \begin{itemize}
@@ -69,6 +72,19 @@ See 'Working Effectively with Legacy Code', page 245.
 CppDepend even warns when there are more than 20 methods.
 \item Types should not have more than 20 fields (CppDepend warns for this).
 \end{itemize}
+
+Use the new cast operators \lstinline{static_cast}, \lstinline{const_cast}, \lstinline{reinterpret_cast} and \lstinline{dynamic_cast} instead of old-style C-casts.
+Reference: TODO
+
+Direct initialization vs copy initialization (difference for fundamental types vs user-defined types).  Personally, for fundamental types, i prefer
+\begin{lstlisting}
+int x = 0;
+\end{lstlisting}
+instead of
+\begin{lstlisting}
+int x(0);
+\end{lstlisting}
+For user-defined types, the story is different.  See for example \url{http://www.gotw.ca/gotw/036.htm}.
 
 \section{Control statements}
 
