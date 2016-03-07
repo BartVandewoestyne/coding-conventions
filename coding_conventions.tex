@@ -55,7 +55,9 @@ Header file include order:
 
 \subsection{Include guards}
 
-Include guards should not start with underscores:
+\begin{guideline}
+Include guards should not start with underscores, because such identifiers are officially reserved for the implementation of the compiler and the Standard Library, according to the C++ Standard (ISO/IEC 14882:2003).
+\end{guideline}
 \begin{itemize}
 \item \url{https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Include_Guard_Macro}
 \item \url{http://stackoverflow.com/questions/17307540/include-guard-conventions-in-c}
