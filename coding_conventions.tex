@@ -11,6 +11,8 @@
 \newcommand{\file}[1]{\texttt{#1}}
 \newcommand{\code}[1]{\texttt{#1}}
 
+\newenvironment{guideline}{}
+
 \begin{document}
 	
 \lstset{language=C++,
@@ -28,6 +30,15 @@
 \section{Comments}
 
 TODO: should comments on a class or method go in the header file or in the source file?
+
+\begin{guideline}
+Do not systematically refer to bug numbers in the code comments when you fix a bug.
+Reason 1: this should be in the commit message, and the commit message must refer to the bug tracking system.
+Reason 2: if bug tracking system changes or is not available, these comments are useless.
+\url{http://programmers.stackexchange.com/questions/175309/code-maintenance-to-add-comments-in-code-or-to-just-leave-it-to-the-version-con}
+\url{http://programmers.stackexchange.com/questions/146823/is-it-good-practice-to-comment-with-issue-number}
+\url{http://programmers.stackexchange.com/questions/228093/good-idea-to-put-bug-numbers-in-a-comment-in-the-beginning-of-the-source-file}
+\end{guideline}
 
 \section{Warnings}
 
@@ -136,6 +147,13 @@ return (x);
 \end{lstlisting}
 See \url{http://stackoverflow.com/questions/4762662/are-parentheses-around-the-result-significant-in-a-return-statement} and \url{http://stackoverflow.com/questions/161879/parenthesis-surrounding-return-values}.
 Reason: it gives the compiler extra work and is not necessary for clarity, so don't use it.
+
+\section{Virtual functions}
+
+\begin{guideline}
+Although not strictly necessary, also use the \lstinline{virtual} keyword for your derived-class virtual functions.  It improves readability of the code and `advertises' the fact to the user that the function is virtual.  This is important to anyone further sub-classing the derived class without having to check the base class's definition.
+See also \url{http://stackoverflow.com/questions/4895294/c-virtual-keyword-for-functions-in-derived-classes-is-it-necessary}.
+\end{guideline}
 
 \section{Subversion}
 
