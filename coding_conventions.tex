@@ -4,6 +4,8 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{bibentry}
+\nobibliography*
 
 \title{Coding guidelines proposal}
 \author{Bart Vandewoestyne}
@@ -11,7 +13,18 @@
 \newcommand{\file}[1]{\texttt{#1}}
 \newcommand{\code}[1]{\texttt{#1}}
 
-\newenvironment{guideline}{}
+\newcounter{guideline}
+\newenvironment{guideline}[1][]{\refstepcounter{guideline}\par\medskip
+   \noindent \textbf{Guideline~\theguideline. #1} \em \rmfamily}{\medskip}
+
+\newenvironment{rationale}{\par\medskip
+   \noindent \textbf{Rationale} \em \rmfamily}{\medskip}
+
+\newenvironment{example}{\par\medskip
+   \noindent \textbf{Example} \em \rmfamily}{\medskip}
+
+\newenvironment{references}{\par\medskip
+   \noindent \textbf{References} \em \rmfamily \begin{itemize}}{\end{itemize}\medskip}
 
 \begin{document}
 	
@@ -147,6 +160,7 @@ for(...)
 
 \section{Return statements}
 
+\begin{guideline}
 Use
 \begin{lstlisting}
 return x;
@@ -155,14 +169,40 @@ instead of
 \begin{lstlisting}
 return (x);
 \end{lstlisting}
-See \url{http://stackoverflow.com/questions/4762662/are-parentheses-around-the-result-significant-in-a-return-statement} and \url{http://stackoverflow.com/questions/161879/parenthesis-surrounding-return-values}.
-Reason: it gives the compiler extra work and is not necessary for clarity, so don't use it.
+\begin{rationale}
+It gives the compiler extra work and is not necessary for clarity, so don't use it.
+\end{rationale}
+\begin{references}
+\item \url{http://stackoverflow.com/questions/4762662/are-parentheses-around-the-result-significant-in-a-return-statement}
+\item \url{http://stackoverflow.com/questions/161879/parenthesis-surrounding-return-values}
+\end{references}
+\end{guideline}
 
 \section{Virtual functions}
 
 \begin{guideline}
-Although not strictly necessary, also use the \lstinline{virtual} keyword for your derived-class virtual functions.  It improves readability of the code and `advertises' the fact to the user that the function is virtual.  This is important to anyone further sub-classing the derived class without having to check the base class's definition.
-See also \url{http://stackoverflow.com/questions/4895294/c-virtual-keyword-for-functions-in-derived-classes-is-it-necessary}.
+Use the \lstinline{virtual} keyword for your derived-class virtual functions.
+\begin{rationale}
+It improves readability of the code and `advertises' the fact to the user that the function is virtual.  This is important to anyone further sub-classing the derived class without having to check the base class's definition.
+\end{rationale}
+\begin{references}
+\item \url{http://stackoverflow.com/questions/4895294/c-virtual-keyword-for-functions-in-derived-classes-is-it-necessary}.
+\end{references}
+\end{guideline}
+
+\section{Operator overloading}
+
+\begin{guideline}
+Implement binary operators as non-members
+\begin{rationale}
+This maintains symmetry.
+\end{rationale}
+\begin{example}
+\end{example}
+\begin{references}
+\item \url{http://en.cppreference.com/w/cpp/language/operators#Canonical_implementations}
+\item \bibentry{lippman2012}
+\end{references}
 \end{guideline}
 
 \section{Subversion}
@@ -170,5 +210,8 @@ See also \url{http://stackoverflow.com/questions/4895294/c-virtual-keyword-for-f
 \begin{itemize}
 	\item Create separate commits for code formatting changes.
 \end{itemize}
+
+\bibliographystyle{plain}
+\bibliography{BibTeX-files/books}
 
 \end{document}
