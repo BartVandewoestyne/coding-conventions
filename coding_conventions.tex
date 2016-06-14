@@ -76,16 +76,29 @@ For Visual C++:
 \section{Header files}
 
 \subsection{Order of inclusion}
-Header file include order:
+\begin{guideline}
+Order all files in groups of descending order of specificity, with each group separated by a blank line, including:
 \begin{enumerate}
-\item include file for corresponding .cpp file
-\item include files from current own module
-\item include files from other own modules
-\item include files from 3rd party modules
-\item standard library headers
-\item system headers
+\item the declaring header(s) file (for implementation files only);
+\item other include groups for the given application component;
+\item other include groups for the organisation;
+\item other include groups for 3rdparty software;
+\item standard C++ headers;
+\item standard C headers;
 \end{enumerate}
-\url{http://stackoverflow.com/questions/2762568/c-c-include-file-order-best-practices}
+Lexicographically order all includes within groups.
+\begin{rationale}
+The reason for descending order of specificity of groups is to expose hidden
+dependencies –- coupling! -– in any of the header files.  The reason for
+lexicographical ordering with groups is to make it easier to comprehend each
+group’s contents.  The reason for a blank line between groups is obvious: to
+delineate one group from another to further aid transparency.
+\end{rationale}
+\begin{references}
+\item See \cite{wilson2016,sutter2004,lakos1996}.
+\item \url{http://stackoverflow.com/questions/2762568/c-c-include-file-order-best-practices}
+\end{references}
+\end{guideline}
 
 \subsection{Include guards}
 
@@ -212,6 +225,6 @@ This maintains symmetry.
 \end{itemize}
 
 \bibliographystyle{plain}
-\bibliography{BibTeX-files/books}
+\bibliography{BibTeX-files/books,BibTeX-files/articles}
 
 \end{document}
