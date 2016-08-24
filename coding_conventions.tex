@@ -7,7 +7,7 @@
 \usepackage{bibentry}
 \nobibliography*
 
-\title{Coding guidelines proposal}
+\title{My personal C++ Coding guidelines}
 \author{Bart Vandewoestyne}
 
 \newcommand{\file}[1]{\texttt{#1}}
@@ -215,6 +215,15 @@ This maintains symmetry.
 \begin{references}
 \item \url{http://en.cppreference.com/w/cpp/language/operators#Canonical_implementations}
 \item \bibentry{lippman2012}
+\end{references}
+\end{guideline}
+
+\section{Exceptions}
+
+\begin{guideline}
+Catch exceptions by reference.
+\begin{references}
+\item \bibentry{meyers1996} item 13
 \end{references}
 \end{guideline}
 
