@@ -4,6 +4,8 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{bibentry}
+\nobibliography*
 
 \title{Coding guidelines proposal}
 \author{Bart Vandewoestyne}
@@ -11,7 +13,9 @@
 \newcommand{\file}[1]{\texttt{#1}}
 \newcommand{\code}[1]{\texttt{#1}}
 
-\newenvironment{guideline}{}
+\newcounter{guideline}
+\newenvironment{guideline}[1][]{\refstepcounter{guideline}\par\medskip
+	\noindent \textbf{Guideline~\theguideline. #1} \em \rmfamily}{\medskip}
 
 \begin{document}
 	
@@ -31,7 +35,6 @@
 
 Find good references for the following guidelines:
 \begin{itemize}
-\item Prefer not to call virtual functions in constructors???
 \item Don't use void as function arguments, simply leave it out???
 \item Prefer not to create threads in constructors???
 \item Setting pointers to NULL after deleting them.
@@ -131,6 +134,8 @@ for (...)
 Reason: avoid confusion and possible future bugs.
 
 \section{Whitespace}
+
+\begin{guideline}
 Use
 \begin{lstlisting}
 for (...)
@@ -143,10 +148,12 @@ for(...)
 {
 }
 \end{lstlisting}
+\end{guideline}
 
 
 \section{Return statements}
 
+\begin{guideline}
 Use
 \begin{lstlisting}
 return x;
@@ -157,8 +164,14 @@ return (x);
 \end{lstlisting}
 See \url{http://stackoverflow.com/questions/4762662/are-parentheses-around-the-result-significant-in-a-return-statement} and \url{http://stackoverflow.com/questions/161879/parenthesis-surrounding-return-values}.
 Reason: it gives the compiler extra work and is not necessary for clarity, so don't use it.
+\end{guideline}
 
 \section{Virtual functions}
+
+\begin{guideline}
+Never call virtual functions during construction or destruction.\\
+References: see \cite{meyers2005}, Item 9.
+\end{guideline}
 
 \begin{guideline}
 Although not strictly necessary, also use the \lstinline{virtual} keyword for your derived-class virtual functions.  It improves readability of the code and `advertises' the fact to the user that the function is virtual.  This is important to anyone further sub-classing the derived class without having to check the base class's definition.
@@ -170,5 +183,22 @@ See also \url{http://stackoverflow.com/questions/4895294/c-virtual-keyword-for-f
 \begin{itemize}
 	\item Create separate commits for code formatting changes.
 \end{itemize}
+
+\section{Unit Testing}
+
+\begin{guideline}
+Use the right terminology for your test doubles:
+\begin{description}
+\item[dummy]
+\item[fake]
+\item[stub]
+\item[mock]
+\end{description}
+See \url{http://martinfowler.com/articles/mocksArentStubs.html} and \url{http://stackoverflow.com/questions/13698969/what-is-the-difference-between-mocks-stubs-and-fake-objects}
+\end{guideline}
+
+
+\bibliographystyle{plain}
+\bibliography{references}
 
 \end{document}
